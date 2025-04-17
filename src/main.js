@@ -4,9 +4,42 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GUI } from 'dat.gui'
 // import { planets } from './planetsData.js'
 
+
+
 const scene = new THREE.Scene()
 const gui = new GUI()
-const textureLoader = new THREE.TextureLoader()
+// Create the loading manager
+const loadingManager = new THREE.LoadingManager();
+
+// Get reference to the loader circle and percentage text
+const loaderCircle = document.getElementById('loader');
+const loaderContainer = document.querySelector('.loader-container')
+// Track progress during loading
+loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
+  const progress = (itemsLoaded / itemsTotal) * 100;
+  console.log(`Loading: ${url} - ${itemsLoaded}/${itemsTotal} - ${Math.round(progress)}%`);
+
+  // Update the circular loader's stroke
+  const dashOffset = 440 - (440 * progress) / 100;
+  loaderCircle.style.strokeDashoffset = dashOffset;
+};
+
+loadingManager.onLoad = function () {
+  console.log("loaded!!!!");
+  setTimeout(()=>{
+    gsap.to(loaderContainer,{
+      opacity: 0,
+      duration: 0.5,
+      ease:'power1.out',
+      display:'none'
+    })
+  },3000)
+}
+
+
+// Use the loading manager with the texture loader
+const textureLoader = new THREE.TextureLoader(loadingManager);
+
 //bacground
 scene.background = new THREE.CubeTextureLoader()
 	.setPath( '/textures/Standard-Cube-Map/' )
