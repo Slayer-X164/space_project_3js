@@ -7,7 +7,7 @@ import { GUI } from 'dat.gui'
 
 
 const scene = new THREE.Scene()
-const gui = new GUI()
+// const gui = new GUI()
 // Create the loading manager
 const loadingManager = new THREE.LoadingManager();
 
