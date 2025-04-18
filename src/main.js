@@ -1,9 +1,7 @@
 import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import { GUI } from 'dat.gui'
-// import { planets } from './planetsData.js'
-
+// import { GUI } from 'dat.gui'
 
 
 const scene = new THREE.Scene()
@@ -11,21 +9,10 @@ const scene = new THREE.Scene()
 // Create the loading manager
 const loadingManager = new THREE.LoadingManager();
 
-// Get reference to the loader circle and percentage text
-const loaderCircle = document.getElementById('loader');
+const loadingFunction = ()=>{
 const loaderContainer = document.querySelector('.loader-container')
-// Track progress during loading
-loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
-  const progress = (itemsLoaded / itemsTotal) * 100;
-  console.log(`Loading: ${url} - ${itemsLoaded}/${itemsTotal} - ${Math.round(progress)}%`);
-
-  // Update the circular loader's stroke
-  const dashOffset = 440 - (440 * progress) / 100;
-  loaderCircle.style.strokeDashoffset = dashOffset;
-};
-
 loadingManager.onLoad = function () {
-  console.log("loaded!!!!");
+  // console.log("loaded!!!!");
   setTimeout(()=>{
     gsap.to(loaderContainer,{
       opacity: 0,
@@ -35,6 +22,8 @@ loadingManager.onLoad = function () {
     })
   },3000)
 }
+}
+loadingFunction()
 
 
 // Use the loading manager with the texture loader
@@ -248,3 +237,26 @@ const renderLoop = ()=>{
   requestAnimationFrame(renderLoop)
 }
 renderLoop()
+
+//to open source code on github
+const codeLink = document.querySelector('.code_container')
+codeLink.addEventListener('click',()=>{
+  window.open('https://github.com/Slayer-X164/space_project_3js')
+})
+//volume play and pause
+const audio = document.querySelector('audio')
+const pause = document.querySelector('#pause')
+const play = document.querySelector('#play')
+
+audio.volume = 0.4
+play.style.display = 'none'
+pause.addEventListener('click',()=>{
+  audio.play()
+  pause.style.display='none'
+  play.style.display='block'
+})
+play.addEventListener('click',()=>{
+  audio.pause()
+  play.style.display='none'
+  pause.style.display='block'
+})
