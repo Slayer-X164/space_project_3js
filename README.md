@@ -17,6 +17,3 @@ A 3D solar system visualization built with [Three.js](https://threejs.org/), fea
 - HTML & CSS
 - [dat.GUI](https://github.com/dataarts/dat.gui) for debugging and tweaking
 - [OrbitControls](https://threejs.org/docs/#examples/en/controls/OrbitControls)
-
-## 📁 Project Structure
-
